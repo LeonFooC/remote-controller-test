@@ -1,0 +1,24 @@
+.accessCard-container {
+    display: grid;
+    grid-template-columns: 1 1 1;
+    gap: 5px;
+  }
+  
+  .accessCard {
+    height: 150px; 
+    align-items: center;
+    padding: 5px;
+  
+    color: black; 
+  
+    background-color: rgb(101, 168, 168);
+    
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: black;
+  }
+
+  .accessLogo {
+    max-height: 70%;
+  }
+  
