@@ -1,10 +1,10 @@
-main {
-  padding: 10px;
-}
-
 body {    
   background-color: rgb(116, 100, 116);
   color: white;
+}
+
+.main {
+  padding: 10px;
 }
 
 .center {

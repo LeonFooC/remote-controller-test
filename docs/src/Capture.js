@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 
-export default function Capture()
+export default function Capture(props)
 {
     return(
         <div style={{height:100}}>
-                <button className='encapsulate' >Start a capture</button>
+                <button className='encapsulate' onClick={props.SwitchToCapturePhoto}>Start a capture</button>
         </div>
     )
 }

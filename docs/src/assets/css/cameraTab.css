@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Fira Sans', sans-serif;
+}
+
+.fullScreen {
+    min-height:  100vh;
+    position: relative;
+}
+
+.video-Container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: black;
+}
+.videoCamera {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+.photo-Container {
+    position: fixed;
+    top: 100%;
+    right: 100%;
+    width: 0%;
+    height: 0%;
+    display: flex;
+    align-items: center;
+    background-color: black;
+    transition: 0.4s;
+}
+
+.photo-Container.hasPhoto {
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.photoCanvas {
+    width: 100%;
+    height: auto;
+}
+
+.captureButton {
+    position: fixed;
+    bottom: 20px;
+    left: 42%;
+
+    appearance: none;
+    border: none;
+    outline: none;
+
+    padding: 8px 16px;
+    background-image: linear-gradient(to right, #844FFF 50%, #FF4F84 50%);
+    background-position: 0%;
+    background-size: 200%;
+    color: #fff;
+    font-size: 24px;
+    font-weight:  700;
+
+    transition: 0.4s;
+
+    cursor: pointer;
+}
+
+.captureButton:hover {
+    background-position: 100%;
+}
+
+
+.exitButton {
+    position: fixed;
+    top: 20px;
+    left: 20xp;
+
+    appearance: none;
+    border: none;
+    outline: none;
+
+    padding: 8px 16px;
+    background-image: linear-gradient(to right, #844FFF 50%, #FF4F84 50%);
+    background-position: 0%;
+    background-size: 200%;
+    color: #fff;
+    font-size: 24px;
+    font-weight:  700;
+
+    transition: 0.4s;
+
+    cursor: pointer;
+}
+
+.exitButton:hover {
+    background-position: 100%;
+}

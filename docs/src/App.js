@@ -4,6 +4,7 @@ import Capture from "./Capture"
 import FilesStatus from "./FilesStatus"
 import NavBar from "./NavBar"
 import RemoteAccess from "./RemoteAccess"
+import CameraTab from "./CameraTab"
 
 export default function App()
 {
@@ -19,20 +20,22 @@ export default function App()
     setTabID(1);
   }
 
-  function SetTabToRemote()
+  function SetTabCapturePhoto()
   {
     setTabID(2);
   }
 
   function RenderPage()
   {
+    //For capture tab
     if(tabID == 0)
     {
-      return <div className="main">
+      return <div className="center">
 
         <h1>5G Remote Controller</h1>
 
-        <Capture />
+        <Capture
+          SwitchToCapturePhoto = {SetTabCapturePhoto} />    
         <FilesStatus />      
 
         <NavBar 
@@ -40,9 +43,10 @@ export default function App()
           SwitchToRemote = {SetTabToRemoteSelect} />    
       </div>
     }
+    //For remote acces tab
     else if(tabID == 1)
     {
-      return <div className="main">
+      return <div className="center">
         
         <h1>5G Remote Controller</h1>
 
@@ -53,18 +57,23 @@ export default function App()
           SwitchToRemote = {SetTabToRemoteSelect} />
       </div>
     }
+    //For dispalying remote access
+    if(tabID == 2)
+    {
+      console.log("camera");
+      return <CameraTab
+                SwitchToCapture = {SetTabToCaptureSelect} />
+    }
     else
     {
-      return <div className="main">
-        
-      </div>
+      
     }
   }
 
   console.log("App started");
   
   return(
-    <main className='center'>
+    <main className='main'>
 
       <RenderPage />
 
