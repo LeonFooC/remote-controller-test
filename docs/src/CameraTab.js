@@ -6,10 +6,14 @@ export default function CameraTab(props)
 {
     const videoRef = useRef(null);
     const photoRef = useRef(null);
+    useEffect(() => {
+        setupCamera();
+        }, [videoRef]
+    )
 
-    const [hasPhoto, setHasPhoto] = useState(false);
+    const [hasCapture, setHasCapture] = useState(false);
 
-    function getVideo()
+    function setupCamera()
     {
         navigator.mediaDevices.getUserMedia ({ video : { width : 1920, height: 1080}})
         .then(stream => { let video = videoRef.current;
@@ -21,8 +25,8 @@ export default function CameraTab(props)
     }
 
     function takePhoto() {
-        const width = 414;
-        const height = width/ (16/9);
+        const width = 1920; //414;
+        const height = 1080; //width/ (16/9);
 
         let video = videoRef.current;
         let photo = photoRef.current;
@@ -33,27 +37,23 @@ export default function CameraTab(props)
         let ctx = photo.getContext('2d');
         ctx.drawImage(video, 0, 0, width, height);
 
-        setHasPhoto(true);
+        setHasCapture(true);
     }
     
-    function savePhoto()
-    {
-        const imageDataURL = photoRef.current.toDataURL('image/png');
-
-        download(imageDataURL)
+    function saveCapture() {
+        const imageDataURL = photoRef.current.toDataURL('image/png');        
+        downloadCapture(imageDataURL);
     }
 
-    function download(url, name = "download", type = "png") {
-        var a = document.createElement("a");
-        a.style.display = "none";
-        a.href = url;
-        a.download = name + "." + type;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        console.log("downloaded?");
+    function downloadCapture(url, name = "download", type = "png") {
+        var templink = document.createElement("a");
+        templink.style.display = "none";
+        templink.href = url;
+        templink.download = name + "." + type;
+        document.body.appendChild(templink);
+        templink.click();
+        document.body.removeChild(templink);
       }
-
 
     function closePhoto() {
         let photo = photoRef.current;
@@ -61,13 +61,8 @@ export default function CameraTab(props)
 
         ctx.clearRect(0, 0, photo.width, photo.height);
 
-        setHasPhoto(false);
+        setHasCapture(false);
     }
-
-    useEffect(() => {
-        getVideo();
-        }, [videoRef]
-    )
     
     console.log("Camera Open");
     
@@ -75,21 +70,22 @@ export default function CameraTab(props)
         <div className="fullScreen">
 
             <div className="video-Container">
-                <video className="videoCamera" ref ={videoRef}></video>
-                
+                <video className="videoCamera" ref ={videoRef}></video>                
             </div>
 
-            <div className={'photo-Container ' + (hasPhoto ? 'hasPhoto' : '')}>
+            <div className={'photo-Container ' + (hasCapture ? 'hasPhoto' : '')}>
                 <canvas className="photoCanvas" ref={photoRef}></canvas>                
             </div>
 
             <button className="exitButton" onClick={props.SwitchToCapture}>X</button>
 
-            { !hasPhoto ? (
+            { !hasCapture ? (
                 <button className="captureButton" onClick={takePhoto}>Capture</button> 
             ) : (
+                
                 <div>
-                <button className="captureButton" onClick={savePhoto} style={{ left: '60%' }}>Save</button>
+                <button className="captureButton" onClick={saveCapture} style={{ left: '90%' }}>Save & Upload</button>
+                <button className="captureButton" onClick={saveCapture} style={{ left: '60%' }}>Save</button>
                 <button className="captureButton" onClick={closePhoto}>Close</button>
                 </div>
             ) }

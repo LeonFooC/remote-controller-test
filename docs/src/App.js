@@ -1,4 +1,3 @@
-
 import React from "react";
 import Capture from "./Capture"
 import FilesStatus from "./FilesStatus"
@@ -34,8 +33,7 @@ export default function App()
 
         <h1>5G Remote Controller</h1>
 
-        <Capture
-          SwitchToCapturePhoto = {SetTabCapturePhoto} />    
+        <Capture SwitchToCapturePhoto = {SetTabCapturePhoto} />    
         <FilesStatus />      
 
         <NavBar 
@@ -58,11 +56,10 @@ export default function App()
       </div>
     }
     //For dispalying remote access
-    if(tabID == 2)
+    else if(tabID == 2)
     {
       console.log("camera");
-      return <CameraTab
-                SwitchToCapture = {SetTabToCaptureSelect} />
+      return <CameraTab SwitchToCapture = {SetTabToCaptureSelect} />
     }
     else
     {
