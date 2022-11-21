@@ -117,8 +117,10 @@ let DisplaySelectedFile = () => (
       case 'jgpe':
         return 'Image';
       case 'laz':
+      case 'las':
         return 'Point Cloud';
       case 'mp4':
+      case 'webm':
         return 'Video';
       default:
         return 'Invalid';
@@ -129,7 +131,22 @@ function HandleUpload() {
 
   console.log("Uploading!!!");
 
-  const fileRef = ref(storage, `files/${selectedFile.name}`);
+  const folderRef = () => {
+    const ext = getExtension(selectedFile.name);
+    switch(ext) {
+      case 'Image':
+        return 'images';
+      case 'Point Cloud':
+        return 'point-clouds';
+      case 'Video':
+        return 'videos';
+      default:
+        return 'Invalid';
+    }
+  }
+
+  const fileRef = ref(storage, folderRef() + '/' + selectedFile.name);
+
   const uploadTask = uploadBytesResumable(fileRef, selectedFile);
 
   // Register three observers:
@@ -175,8 +192,7 @@ function HandleUpload() {
             <label className="fileUpload-btn" htmlFor='upload-btn'>Choose File</label>
           </div>
           
-          <div className="fileCard-container">
-            
+          <div className="fileCard-container">            
             {isFilePicked ? (UpdateSelectedFileInfo()) : (<p hidden>No file selected</p>)}
             {selectedFile != null ? (DisplaySelectedFile()) : (<p hidden>No file selected</p>)}
             {DisplayFilesList}
